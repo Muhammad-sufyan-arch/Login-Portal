@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome — Login Portal</title>
+  <!-- Unified stylesheet (covers both pages) -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="card">
+
+    <!-- Brand icon mark -->
+    <div class="brand-mark">
+      <!-- Inline SVG: shield with checkmark — no external dependency -->
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V6L12 2z"/>
+        <polyline points="9 12 11 14 15 10"/>
+      </svg>
+    </div>
+
+    <!-- Eyebrow badge -->
+    <div class="welcome-badge">Secure Access</div>
+
+    <!-- Headline -->
+    <h1 class="card-title">Welcome Back</h1>
+    <p class="card-subtitle">
+      Sign in to your account to continue where you left off.
+    </p>
+
+    <!-- Feature highlights -->
+    <div class="features">
+      <span class="feature-pill"><span class="dot"></span>Encrypted</span>
+      <span class="feature-pill"><span class="dot"></span>Private</span>
+      <span class="feature-pill"><span class="dot"></span>Fast</span>
+    </div>
+
+    <!-- CTA — link inside a styled anchor, no JS needed -->
+    <a href="next.html" class="btn-primary">
+      Get Started
+      <!-- Right arrow icon (inline SVG, no FontAwesome dependency on this page) -->
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="5" y1="12" x2="19" y2="12"/>
+        <polyline points="12 5 19 12 12 19"/>
+      </svg>
+    </a>
+
+  </div>
+
+</body>
+</html>

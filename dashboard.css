@@ -1,0 +1,228 @@
+/* ============================================================
+   DASHBOARD PORTAL — Unified Stylesheet
+   Matches the design system established in style.css
+   ============================================================ */
+
+/* ── Design Tokens (Inherited) ─────────────────────────────── */
+:root {
+  --color-bg:         #0F1629;   
+  --color-card:       #FFFFFF;   
+  --color-accent:     #5B6AF0;   
+  --color-accent-dk:  #4453D6;   
+  --color-accent-lt:  #7B89F4;   
+  --color-text:       #1A1F36;   
+  --color-muted:      #29334f;   
+  --color-border:     #E4E8F0;   
+  --color-success:    #10B981;   
+  --color-danger:     #EF4444;   /* Added for logout button */
+  --color-danger-dk:  #DC2626;
+
+  --radius-card:  20px;
+  --radius-input: 10px;
+  --radius-btn:   10px;
+
+  --shadow-card:  0 24px 60px rgba(15, 22, 41, 0.35),
+                  0 6px 20px rgba(91, 106, 240, 0.12);
+  --shadow-btn:   0 4px 16px rgba(91, 106, 240, 0.40);
+
+  --transition:   all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  --font:         'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Reset & Base ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font);
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 0%,
+      rgba(91, 106, 240, 0.18) 0%,
+      transparent 70%);
+}
+
+/* ── Shared Card Shell (Animated) ───────────────────────────── */
+.card {
+  position: relative;
+  background: var(--color-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 48px 44px;
+  width: 100%;
+  max-width: 480px; /* Slightly wider for the dashboard stats */
+  text-align: center;
+  z-index: 0;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius-card) + 2px);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-lt),
+    var(--color-accent),
+    #A78BF7,
+    var(--color-accent-lt)
+  );
+  background-size: 300% 300%;
+  animation: borderPulse 5s ease infinite;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+@keyframes borderPulse {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── Success Mark (Adapted from brand-mark) ─────────────────── */
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
+}
+
+.success-mark {
+  background: linear-gradient(135deg, var(--color-success), #34D399);
+  color: white;
+  font-size: 24px;
+}
+
+/* ── Typography ─────────────────────────────────────────────── */
+.card-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.card-subtitle {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--color-muted);
+  line-height: 1.5;
+  margin-bottom: 36px;
+}
+
+/* ── Dashboard Mockup Elements ──────────────────────────────── */
+.dashboard-mockup {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.stat-box {
+  flex: 1;
+  background: #F8F9FC;
+  padding: 18px 12px;
+  border-radius: 14px;
+  border: 1.5px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.stat-box:hover {
+  background: #FFFFFF;
+  border-color: var(--color-accent-lt);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(91, 106, 240, 0.15);
+}
+
+.stat-box i {
+  font-size: 22px;
+  color: var(--color-accent);
+  transition: var(--transition);
+}
+
+.stat-box:hover i {
+  transform: scale(1.1);
+}
+
+.stat-box span {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* ── Logout Button (Adapted from btn-primary) ───────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 24px;
+  font-family: var(--font);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: none;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.btn-logout {
+  background: linear-gradient(135deg, var(--color-danger), #FCA5A5);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.35);
+}
+
+.btn-logout::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: skewX(-15deg);
+  transition: left 0.45s ease;
+}
+
+.btn-logout:hover {
+  background: linear-gradient(135deg, var(--color-danger-dk), var(--color-danger));
+  box-shadow: 0 6px 22px rgba(239, 68, 68, 0.55);
+  transform: translateY(-2px);
+}
+
+.btn-logout:hover::after {
+  left: 140%;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .card { padding: 36px 24px; }
+  .card-title { font-size: 1.5rem; }
+  .dashboard-mockup { flex-direction: column; }
+}

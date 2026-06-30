@@ -1,0 +1,418 @@
+/* ============================================================
+   LOGIN PORTAL — Unified Stylesheet
+   Uses: Inter (Google Fonts), FontAwesome (next.html only)
+   Constraint: Pure HTML + CSS, zero JavaScript
+   ============================================================ */
+
+/* ── Google Font Import ────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ── Design Tokens ─────────────────────────────────────────── */
+:root {
+  --color-bg:         #0F1629;   /* deep navy page background   */
+  --color-card:       #FFFFFF;   /* pure white card surface     */
+  --color-accent:     #5B6AF0;   /* electric indigo — CTA       */
+  --color-accent-dk:  #4453D6;   /* darker accent for hover     */
+  --color-accent-lt:  #7B89F4;   /* lighter for gradient        */
+  --color-text:       #1A1F36;   /* near-black body copy        */
+  --color-muted:      #29334f;   /* secondary / placeholder     */
+  --color-border:     #E4E8F0;   /* subtle input border         */
+  --color-border-focus: #5B6AF0; /* focused input ring          */
+  --color-success:    #10B981;   /* checkbox accent             */
+
+  --radius-card:  20px;
+  --radius-input: 10px;
+  --radius-btn:   10px;
+
+  --shadow-card:  0 24px 60px rgba(15, 22, 41, 0.35),
+                  0 6px 20px rgba(91, 106, 240, 0.12);
+  --shadow-btn:   0 4px 16px rgba(91, 106, 240, 0.40);
+
+  --transition:   all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --font:         'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Reset & Base ───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font);
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+
+  /* Subtle ambient background texture */
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 0%,
+      rgba(91, 106, 240, 0.18) 0%,
+      transparent 70%);
+}
+
+/* ── Shared Card Shell ──────────────────────────────────────── */
+/*
+   The signature element: a slowly pulsing gradient border ring
+   rendered as a ::before pseudo-element behind the white card.
+   100% CSS — no JS.
+*/
+.card {
+  position: relative;
+  background: var(--color-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 48px 44px;
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+  z-index: 0;
+}
+
+/* Animated gradient border ring */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius-card) + 2px);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-lt),
+    var(--color-accent),
+    #A78BF7,
+    var(--color-accent-lt)
+  );
+  background-size: 300% 300%;
+  animation: borderPulse 5s ease infinite;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+@keyframes borderPulse {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .card::before { animation: none; }
+}
+
+/* ── Brand Mark (small top logo) ────────────────────────────── */
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, var(--color-accent), #A78BF7);
+  border-radius: 14px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(91, 106, 240, 0.35);
+}
+
+.brand-mark svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Typography ─────────────────────────────────────────────── */
+.card-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.card-subtitle {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--color-muted);
+  line-height: 1.5;
+  margin-bottom: 36px;
+}
+
+/* ── Primary Button (shared) ────────────────────────────────── */
+.btn-primary  {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, var(--color-accent), #7B89F4);
+  color: #fff;
+  font-family: var(--font);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: none;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: var(--shadow-btn);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shine sweep on hover — pure CSS */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.25),
+    transparent
+  );
+  transform: skewX(-15deg);
+  transition: left 0.45s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--color-accent-dk), var(--color-accent));
+  box-shadow: 0 6px 22px rgba(91, 106, 240, 0.55);
+  transform: translateY(-2px);
+}
+
+.btn-primary:hover::after {
+  left: 140%;
+}
+
+.btn-primary:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 10px rgba(91, 106, 240, 0.35);
+}
+
+/* ── Divider ────────────────────────────────────────────────── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 28px 0;
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INDEX.HTML — Welcome Screen
+   ═══════════════════════════════════════════════════════════ */
+
+/* Tagline badge */
+.welcome-badge {
+  display: inline-block;
+  padding: 5px 14px;
+  background: rgba(91, 106, 240, 0.10);
+  border: 1px solid rgba(91, 106, 240, 0.25);
+  border-radius: 100px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-accent);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+/* Feature pills row */
+.features {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 28px 0 36px;
+}
+
+.feature-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: #F5F7FF;
+  border-radius: 100px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.feature-pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NEXT.HTML — Login Form
+   ═══════════════════════════════════════════════════════════ */
+
+/* Form group wrapping label + icon input */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.form-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+}
+
+/* Input wrapper positions the icon inside */
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrap i {
+  position: absolute;
+  left: 14px;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 14px 12px 40px;
+  font-family: var(--font);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--color-text);
+  background: #F8F9FC;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-input);
+  outline: none;
+  transition: var(--transition);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form-input::placeholder {
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+/* Focus ring */
+.form-input:focus {
+  border-color: var(--color-border-focus);
+  background: #fff;
+  box-shadow: 0 0 0 3.5px rgba(91, 106, 240, 0.14);
+}
+
+/* Icon turns accent when sibling input is focused */
+.form-input:focus + i,
+.input-wrap:focus-within i {
+  color: var(--color-accent);
+}
+
+/* Remember me row */
+.remember-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.remember-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Custom checkbox */
+.remember-label input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Forgot password link */
+.forgot-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.forgot-link:hover {
+  color: var(--color-accent-dk);
+  text-decoration: underline;
+}
+
+/* Bottom sign-up prompt */
+.signup-prompt {
+  margin-top: 24px;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.signup-prompt a {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.signup-prompt a:hover {
+  color: var(--color-accent-dk);
+  text-decoration: underline;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .card {
+    padding: 36px 24px;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+  }
+
+  .features {
+    gap: 6px;
+  }
+}
